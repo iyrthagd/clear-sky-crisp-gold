@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "AssetWatchlist.com",
+      "hasCanvas": false,
+      "bodyTextLen": 987,
+      "bodyTextHash": "244bf0bcde89d075ad5b795a4a00703b26bd7dc7e4303483ad060c5126908866",
+      "bodyTextPrefix": "A sset W atchlist.com Home Today's List Previous Lists More ADVE",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "AssetWatchlist.com",
+      "hasCanvas": false,
+      "bodyTextLen": 954,
+      "bodyTextHash": "624ba7eb039a0407e0fc3fcf14ffcd29616d926e952c1799a7b41bcf7370d408",
+      "bodyTextPrefix": "A sset W atchlist.com More ADVERTISEMENT Premium placement — spo",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
