@@ -38,17 +38,20 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
         <table className="w-full min-w-[760px] border-collapse text-center text-sm">
           <thead>
             <tr>
-              <th className="w-24 border-none bg-paper-2" />
+              {/* Asset sits in the title row — bold, no shaded background */}
+              <th className="w-24 border-b-2 border-r-2 border-line-strong bg-paper-2 px-3 py-4 text-base font-semibold tracking-tight text-fg">
+                Asset
+              </th>
               <th
                 colSpan={6}
-                className="border-b-2 border-line-strong px-3 py-4 text-base font-semibold tracking-tight"
+                className="border-b-2 border-line-strong bg-paper-2 px-3 py-4 text-base font-semibold tracking-tight text-fg"
               >
                 {title}
               </th>
             </tr>
             <tr className="bg-paper text-[11px] uppercase tracking-wide text-muted">
-              <th className="border-b-2 border-r-2 border-line-strong px-3 py-3 font-semibold text-fg">
-                Asset
+              <th className="border-b-2 border-r-2 border-line-strong bg-paper-2 px-3 py-2" aria-hidden>
+                {/* spacer under Asset title cell */}
               </th>
               <th className="border-b-2 border-r border-line-strong px-3 py-3 font-semibold text-fg">
                 Price
@@ -77,7 +80,7 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
               const moveClass = a.expectedMove === "Bullish" ? "text-bull" : "text-bear";
               return (
                 <tr key={a.ticker} className="hover:bg-paper/80">
-                  <th className={`${bottom} border-r-2 border-line-strong px-3 py-3 font-semibold`}>
+                  <th className={`${bottom} border-r-2 border-line-strong bg-paper-2 px-3 py-3 font-semibold`}>
                     <Link
                       to="/asset/$ticker"
                       params={{ ticker: a.ticker }}
