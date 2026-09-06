@@ -45,18 +45,14 @@ const quickLinks = [
 function Home() {
   return (
     <PageShell>
-      {/* Page title block — centered logo + live EST date */}
+      {/* Centered logo + live EST date (no "Today's List" label) */}
       <header className="mb-8 border-b border-line pb-6 text-center">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-          Today's List
-        </p>
         <div className="flex justify-center">
           <LogoOnLight centered />
         </div>
         <LiveEstDate className="mt-2 block text-sm font-medium tabular-nums text-muted" />
       </header>
 
-      {/* Main grid: list + sidebar (Barchart-style denser home) */}
       <div className="grid gap-8 lg:grid-cols-[1fr_300px]">
         <div className="min-w-0 space-y-8">
           <StockTable title="Today's List" assets={august30} />
@@ -69,7 +65,6 @@ function Home() {
         </div>
 
         <aside className="space-y-5">
-          {/* Account */}
           <section className="rounded-lg border border-line bg-paper-2 p-4">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
               <LogIn className="size-4 text-brand-blue" strokeWidth={1.75} />
@@ -96,7 +91,6 @@ function Home() {
             </div>
           </section>
 
-          {/* News */}
           <section className="rounded-lg border border-line bg-paper-2 p-4">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
               <Newspaper className="size-4 text-brand-blue" strokeWidth={1.75} />
@@ -112,7 +106,6 @@ function Home() {
             </ul>
           </section>
 
-          {/* Quick links */}
           <section className="rounded-lg border border-line bg-paper-2 p-4">
             <h2 className="mb-3 text-sm font-semibold">Explore</h2>
             <div className="grid grid-cols-1 gap-1.5">
@@ -129,7 +122,6 @@ function Home() {
             </div>
           </section>
 
-          {/* Community chat teaser */}
           <section className="rounded-lg border border-line bg-paper-2 p-4">
             <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold">
               <MessageSquare className="size-4 text-brand-blue" strokeWidth={1.75} />
