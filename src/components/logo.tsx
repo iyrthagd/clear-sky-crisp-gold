@@ -1,18 +1,49 @@
 import { Link } from "@tanstack/react-router";
 
-/** Capital A with red outline/body and a bright blue horizontal crossbar. */
+/**
+ * Capital A drawn as two red outer strokes + a blue crossbar
+ * (the blue bar replaces the usual red middle bar of the letter).
+ */
 function BrandA({ className = "" }: { className?: string }) {
   return (
-    <span
-      className={`relative inline-block font-semibold leading-none text-brand-red ${className}`}
+    <svg
+      className={`inline-block h-[1.05em] w-[0.78em] shrink-0 align-[-0.12em] ${className}`}
+      viewBox="0 0 24 28"
       aria-hidden="true"
+      focusable="false"
     >
-      A
-      <span
-        className="pointer-events-none absolute left-[16%] right-[16%] top-[54%] h-[2.5px] -translate-y-1/2 rounded-[1px] bg-brand-blue-bright shadow-[0_0_0_0.5px_rgba(37,99,235,0.35)]"
-        style={{ minHeight: "2.5px" }}
+      {/* Left leg */}
+      <path
+        d="M12 3.2 L4.2 25.5"
+        fill="none"
+        stroke="currentColor"
+        className="text-brand-red"
+        strokeWidth="3.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-    </span>
+      {/* Right leg */}
+      <path
+        d="M12 3.2 L19.8 25.5"
+        fill="none"
+        stroke="currentColor"
+        className="text-brand-red"
+        strokeWidth="3.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Blue crossbar — sits between the outer legs, not past them */}
+      <line
+        x1="7.2"
+        y1="16.2"
+        x2="16.8"
+        y2="16.2"
+        stroke="currentColor"
+        className="text-brand-blue-bright"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
@@ -21,19 +52,18 @@ export function Logo({
   centered = false,
 }: {
   compact?: boolean;
-  /** Larger, centered lockup for page titles */
   centered?: boolean;
 }) {
   const size = centered ? "text-2xl md:text-3xl" : "text-base";
   return (
     <Link
       to="/"
-      className={`inline-flex items-baseline font-semibold tracking-tight no-underline ${size} ${
+      className={`inline-flex items-baseline gap-0 font-semibold tracking-tight no-underline ${size} ${
         centered ? "justify-center" : ""
       }`}
       aria-label="AssetWatchlist.com home"
     >
-      <BrandA className={centered ? "text-[1.15em]" : ""} />
+      <BrandA />
       <span className="text-white">sset</span>
       <span className="text-brand-green">W</span>
       <span className="text-white">{compact ? ".com" : "atchlist.com"}</span>
@@ -53,12 +83,12 @@ export function LogoOnLight({
   return (
     <Link
       to="/"
-      className={`inline-flex items-baseline font-semibold tracking-tight no-underline ${size} ${
+      className={`inline-flex items-baseline gap-0 font-semibold tracking-tight no-underline ${size} ${
         centered ? "justify-center" : ""
       }`}
       aria-label="AssetWatchlist.com home"
     >
-      <BrandA className={centered ? "text-[1.15em]" : ""} />
+      <BrandA />
       <span className="text-fg">sset</span>
       <span className="text-brand-green">W</span>
       <span className="text-fg">{compact ? ".com" : "atchlist.com"}</span>
