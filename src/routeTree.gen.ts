@@ -18,6 +18,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as RankingsRouteImport } from './routes/rankings'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as TodayRouteImport } from './routes/today'
 import { Route as AssetTickerRouteImport } from './routes/asset.$ticker'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -66,6 +67,11 @@ const SearchRoute = SearchRouteImport.update({
   path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TodayRoute = TodayRouteImport.update({
+  id: '/today',
+  path: '/today',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetTickerRoute = AssetTickerRouteImport.update({
   id: '/asset/$ticker',
   path: '/asset/$ticker',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/rankings': typeof RankingsRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/today': typeof TodayRoute
   '/asset/$ticker': typeof AssetTickerRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/rankings': typeof RankingsRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/today': typeof TodayRoute
   '/asset/$ticker': typeof AssetTickerRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/rankings': typeof RankingsRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
+  '/today': typeof TodayRoute
   '/asset/$ticker': typeof AssetTickerRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/rankings'
     | '/register'
     | '/search'
+    | '/today'
     | '/asset/$ticker'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/rankings'
     | '/register'
     | '/search'
+    | '/today'
     | '/asset/$ticker'
     | '/api/auth/$'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/rankings'
     | '/register'
     | '/search'
+    | '/today'
     | '/asset/$ticker'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   RankingsRoute: typeof RankingsRoute
   RegisterRoute: typeof RegisterRoute
   SearchRoute: typeof SearchRoute
+  TodayRoute: typeof TodayRoute
   AssetTickerRoute: typeof AssetTickerRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/today': {
+      id: '/today'
+      path: '/today'
+      fullPath: '/today'
+      preLoaderRoute: typeof TodayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/asset/$ticker': {
       id: '/asset/$ticker'
       path: '/asset/$ticker'
@@ -265,6 +285,7 @@ const rootRouteChildren: RootRouteChildren = {
   RankingsRoute: RankingsRoute,
   RegisterRoute: RegisterRoute,
   SearchRoute: SearchRoute,
+  TodayRoute: TodayRoute,
   AssetTickerRoute: AssetTickerRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
