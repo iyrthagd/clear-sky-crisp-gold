@@ -42,10 +42,16 @@ export function SiteHeader() {
         <div className="flex min-w-0 items-center gap-5">
           <Logo />
           <nav className="flex items-center gap-1 text-sm text-white/80">
-            <Link to="/" className="hidden rounded-md px-3 py-2 hover:bg-white/10 hover:text-white md:inline">
+            <Link
+              to="/"
+              className="hidden rounded-md px-3 py-2 hover:bg-white/10 hover:text-white md:inline"
+            >
               Home
             </Link>
-            <Link to="/" className="hidden rounded-md px-3 py-2 hover:bg-white/10 hover:text-white md:inline">
+            <Link
+              to="/today"
+              className="hidden rounded-md px-3 py-2 hover:bg-white/10 hover:text-white md:inline"
+            >
               Today's List
             </Link>
             <Link
@@ -114,7 +120,7 @@ export function SiteHeader() {
                   className="block w-full px-4 py-2.5 text-left text-sm hover:bg-paper"
                   onClick={() => {
                     setSearchOpen(false);
-                    navigate({ to: "/" });
+                    navigate({ to: "/today" });
                     queueMicrotask(() => document.getElementById("list-search")?.focus());
                   }}
                 >
