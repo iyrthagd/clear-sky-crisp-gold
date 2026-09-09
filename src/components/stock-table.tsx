@@ -29,43 +29,45 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search this list…"
-            className="h-10 w-full max-w-xs rounded-md border border-line bg-paper-2 px-3 text-sm outline-none ring-ink/20 placeholder:text-muted focus:ring-2"
+            className="h-10 w-full max-w-xs border border-line bg-white px-3 text-sm outline-none placeholder:text-muted focus:border-ink"
           />
         </div>
       ) : null}
 
-      <div className="overflow-x-auto rounded-lg border border-line bg-paper-2">
+      <div className="overflow-x-auto border border-line bg-white">
         <table className="w-full min-w-[760px] border-collapse text-center text-sm">
           <thead>
+            {/* Row 1: empty top-left (no bottom border) + chart title */}
             <tr>
-              {/* Asset sits in the title row — bold, no shaded background */}
-              <th className="w-24 border-b-2 border-r-2 border-line-strong bg-paper-2 px-3 py-4 text-base font-semibold tracking-tight text-fg">
-                Asset
-              </th>
+              <th
+                className="w-24 border-b-0 border-r-2 border-line-strong bg-white px-3 py-4"
+                aria-hidden
+              />
               <th
                 colSpan={6}
-                className="border-b-2 border-line-strong bg-paper-2 px-3 py-4 text-base font-semibold tracking-tight text-fg"
+                className="border-b-2 border-line-strong bg-white px-3 py-4 text-base font-semibold tracking-tight text-fg"
               >
                 {title}
               </th>
             </tr>
-            <tr className="bg-paper text-[11px] uppercase tracking-wide text-muted">
-              <th className="border-b-2 border-r-2 border-line-strong bg-paper-2 px-3 py-2" aria-hidden>
-                {/* spacer under Asset title cell */}
+            {/* Row 2: Asset + column headers */}
+            <tr className="text-[11px] uppercase tracking-wide">
+              <th className="border-b-2 border-r-2 border-line-strong bg-white px-3 py-3 text-base font-semibold normal-case tracking-tight text-fg">
+                Asset
               </th>
-              <th className="border-b-2 border-r border-line-strong px-3 py-3 font-semibold text-fg">
+              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
                 Price
               </th>
-              <th className="border-b-2 border-r border-line-strong px-3 py-3 font-semibold text-fg">
+              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
                 Expected Move
               </th>
-              <th className="border-b-2 border-r border-line-strong px-3 py-3 font-semibold text-fg">
+              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
                 Time Horizon
               </th>
-              <th className="border-b-2 border-r border-line-strong px-3 py-3 font-semibold text-fg">
+              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
                 52W Range
               </th>
-              <th className="border-b-2 border-r border-line-strong px-3 py-3 font-semibold text-fg">
+              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
                 aw.com Estimate
               </th>
               <th className="border-b-2 border-line-strong px-3 py-3 font-semibold text-fg">
@@ -79,24 +81,30 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
               const bottom = last ? "border-b-2 border-line-strong" : "border-b border-line";
               const moveClass = a.expectedMove === "Bullish" ? "text-bull" : "text-bear";
               return (
-                <tr key={a.ticker} className="hover:bg-paper/80">
-                  <th className={`${bottom} border-r-2 border-line-strong bg-paper-2 px-3 py-3 font-semibold`}>
+                <tr key={a.ticker} className="hover:bg-neutral-50">
+                  <th
+                    className={`${bottom} border-r-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg`}
+                  >
                     <Link
                       to="/asset/$ticker"
                       params={{ ticker: a.ticker }}
-                      className="block hover:underline"
+                      className="block text-fg hover:underline"
                     >
                       ${a.ticker}
                     </Link>
                   </th>
-                  <td className={`${bottom} border-r border-line px-3 py-3 font-mono tabular-nums`}>
+                  <td
+                    className={`${bottom} border-r border-line px-3 py-3 font-mono tabular-nums text-fg`}
+                  >
                     {formatPrice(a.price)}
                   </td>
-                  <td className={`${bottom} border-r border-line px-3 py-3 ${moveClass}`}>
+                  <td className={`${bottom} border-r border-line px-3 py-3 font-medium ${moveClass}`}>
                     {a.expectedMove}
                   </td>
-                  <td className={`${bottom} border-r border-line px-3 py-3`}>{a.timeHorizon}</td>
-                  <td className={`${bottom} border-r border-line px-3 py-3 font-mono tabular-nums`}>
+                  <td className={`${bottom} border-r border-line px-3 py-3 text-fg`}>{a.timeHorizon}</td>
+                  <td
+                    className={`${bottom} border-r border-line px-3 py-3 font-mono tabular-nums text-fg`}
+                  >
                     {a.range52w}
                   </td>
                   <td className={`${bottom} border-r border-line px-3 py-3`}>
@@ -104,17 +112,16 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
                       to="/asset/$ticker"
                       params={{ ticker: a.ticker }}
                       search={{ section: "estimate" }}
-                      className="block text-link hover:underline"
+                      className="block text-fg hover:underline"
                     >
                       {a.estimate}
                     </Link>
                   </td>
                   <td className={`${bottom} px-3 py-3`}>
                     <Link
-                      to="/asset/$ticker"
-                      params={{ ticker: a.ticker }}
+                      to="/asset/$ticker"indungen params={{ ticker: a.ticker }}
                       search={{ section: "rank" }}
-                      className="block text-link hover:underline"
+                      className="block font-medium text-link hover:underline"
                     >
                       {a.rank}/100
                     </Link>
