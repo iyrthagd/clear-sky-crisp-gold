@@ -37,7 +37,6 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
       <div className="overflow-x-auto border border-line bg-white">
         <table className="w-full min-w-[760px] border-collapse text-center text-sm">
           <thead>
-            {/* Row 1: empty top-left (no bottom border) + chart title */}
             <tr>
               <th
                 className="w-24 border-b-0 border-r-2 border-line-strong bg-white px-3 py-4"
@@ -50,7 +49,6 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
                 {title}
               </th>
             </tr>
-            {/* Row 2: Asset + column headers */}
             <tr className="text-[11px] uppercase tracking-wide">
               <th className="border-b-2 border-r-2 border-line-strong bg-white px-3 py-3 text-base font-semibold normal-case tracking-tight text-fg">
                 Asset
@@ -119,9 +117,10 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
                   </td>
                   <td className={`${bottom} px-3 py-3`}>
                     <Link
-                      to="/asset/$ticker"indungen params={{ ticker: a.ticker }}
+                      to="/asset/$ticker"
+                      params={{ ticker: a.ticker }}
                       search={{ section: "rank" }}
-                      className="block font-medium text-link hover:underline"
+                      className="block font-medium text-brand-blue hover:underline"
                     >
                       {a.rank}/100
                     </Link>
