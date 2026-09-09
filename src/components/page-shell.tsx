@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-paper text-fg">
+    <div className="min-h-screen bg-white text-fg">
       <SiteHeader />
       <AdBanner />
       <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
