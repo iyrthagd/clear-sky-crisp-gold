@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageShell } from "@/components/page-shell";
-import { PersonalWatchlist } from "@/components/personal-watchlist";
 import { StockTable } from "@/components/stock-table";
+import { YourWatchlists } from "@/components/your-watchlists";
 import { august29 } from "@/lib/assets";
 
 export const Route = createFileRoute("/lists")({ component: Lists });
@@ -38,8 +38,6 @@ function daysInMonth(year: number, month: number) {
 }
 
 function getAssetsForDate(year: number, month: number, day: number) {
-  // Hook real archives up here later.
-  // Example: August 29, 2026 uses the existing sample list.
   if (year === 2026 && month === 8 && day === 29) return august29;
   return null;
 }
@@ -111,13 +109,11 @@ function Lists() {
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
-        {/* Folder browser */}
-        <section className="rounded-lg border border-line bg-surface p-4 shadow-sm">
-          {/* Breadcrumb */}
+        <section className="border border-line bg-white p-4">
           <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted">
             <button
               type="button"
-              className="text-primary hover:underline"
+              className="underline hover:text-fg"
               onClick={() => setView({ level: "years" })}
             >
               All years
@@ -127,7 +123,7 @@ function Lists() {
                 <span>/</span>
                 <button
                   type="button"
-                  className="text-primary hover:underline"
+                  className="underline hover:text-fg"
                   onClick={() =>
                     setView({
                       level: "months",
@@ -144,7 +140,7 @@ function Lists() {
                 <span>/</span>
                 <button
                   type="button"
-                  className="text-primary hover:underline"
+                  className="underline hover:text-fg"
                   onClick={() =>
                     setView({
                       level: "days",
@@ -165,7 +161,6 @@ function Lists() {
             )}
           </div>
 
-          {/* Years */}
           {view.level === "years" && (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {[2026, 2027].map((year) => (
@@ -173,7 +168,7 @@ function Lists() {
                   key={year}
                   type="button"
                   onClick={() => setView({ level: "months", year })}
-                  className="rounded-lg border border-line bg-bg px-3 py-5 text-center transition hover:border-primary hover:bg-white/5"
+                  className="border border-line bg-white px-3 py-5 text-center hover:bg-neutral-50"
                 >
                   <div className="text-2xl">📁</div>
                   <div className="mt-1 text-sm font-semibold">{year}</div>
@@ -182,7 +177,6 @@ function Lists() {
             </div>
           )}
 
-          {/* Months */}
           {view.level === "months" && (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {Array.from(
@@ -197,7 +191,7 @@ function Lists() {
                     setCalYear(view.year);
                     setCalMonth(month);
                   }}
-                  className="rounded-lg border border-line bg-bg px-3 py-5 text-center transition hover:border-primary hover:bg-white/5"
+                  className="border border-line bg-white px-3 py-5 text-center hover:bg-neutral-50"
                 >
                   <div className="text-2xl">📁</div>
                   <div className="mt-1 text-sm font-semibold">{MONTH_NAMES[month]}</div>
@@ -206,7 +200,6 @@ function Lists() {
             </div>
           )}
 
-          {/* Days */}
           {view.level === "days" && (
             <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
               {Array.from({ length: daysInMonth(view.year, view.month) }, (_, i) => i + 1).map(
@@ -215,7 +208,7 @@ function Lists() {
                     key={day}
                     type="button"
                     onClick={() => openDay(view.year, view.month, day)}
-                    className="rounded-lg border border-line bg-bg px-2 py-3 text-center transition hover:border-primary hover:bg-white/5"
+                    className="border border-line bg-white px-2 py-3 text-center hover:bg-neutral-50"
                   >
                     <div className="text-base font-bold">{day}</div>
                     <div className="text-[11px] text-muted">
@@ -227,7 +220,6 @@ function Lists() {
             </div>
           )}
 
-          {/* Single day list */}
           {view.level === "day" && (
             <div>
               <h2 className="mb-3 text-lg font-semibold">
@@ -239,7 +231,7 @@ function Lists() {
                   assets={dayAssets}
                 />
               ) : (
-                <p className="rounded-md border border-dashed border-line px-4 py-8 text-center text-sm text-muted">
+                <p className="border border-dashed border-line px-4 py-8 text-center text-sm text-muted">
                   No list saved for this date yet. You can add archive data later.
                 </p>
               )}
@@ -247,14 +239,13 @@ function Lists() {
           )}
         </section>
 
-        {/* Calendar */}
-        <aside className="rounded-lg border border-line bg-surface p-4 shadow-sm">
+        <aside className="border border-line bg-white p-4">
           <h3 className="mb-3 text-sm font-semibold">Pick a date</h3>
           <div className="mb-3 flex items-center justify-between">
             <button
               type="button"
               onClick={() => shiftCalendar(-1)}
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-line hover:bg-white/5"
+              className="flex h-8 w-8 items-center justify-center border border-line hover:bg-neutral-50"
               aria-label="Previous month"
             >
               ‹
@@ -265,7 +256,7 @@ function Lists() {
             <button
               type="button"
               onClick={() => shiftCalendar(1)}
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-line hover:bg-white/5"
+              className="flex h-8 w-8 items-center justify-center border border-line hover:bg-neutral-50"
               aria-label="Next month"
             >
               ›
@@ -293,9 +284,9 @@ function Lists() {
                   disabled={!cell.allowed}
                   onClick={() => openDay(calYear, calMonth, cell.day!)}
                   className={[
-                    "h-8 rounded-md text-sm",
-                    !cell.allowed ? "cursor-default text-muted/40" : "hover:bg-white/10",
-                    isSelected ? "bg-fg text-bg font-semibold" : "",
+                    "h-8 text-sm",
+                    !cell.allowed ? "cursor-default text-muted/40" : "hover:bg-neutral-100",
+                    isSelected ? "bg-black font-semibold text-white" : "",
                   ].join(" ")}
                 >
                   {cell.day}
@@ -310,11 +301,11 @@ function Lists() {
         </aside>
       </div>
 
-      <div className="my-10 rounded-md border border-dashed border-line bg-ad px-4 py-6 text-center text-sm text-muted">
+      <div className="my-10 border border-dashed border-line bg-ad px-4 py-6 text-center text-sm text-muted">
         Advertisement
       </div>
 
-      <PersonalWatchlist />
+      <YourWatchlists />
     </PageShell>
   );
 }
