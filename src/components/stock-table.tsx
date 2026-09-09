@@ -34,41 +34,46 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
         </div>
       ) : null}
 
-      <div className="overflow-x-auto border border-line bg-white">
+      <div className="overflow-x-auto bg-white">
         <table className="w-full min-w-[760px] border-collapse text-center text-sm">
           <thead>
+            {/* Row 1: open top-left (no right border); title only — not inside full frame */}
             <tr>
-              <th
-                className="w-24 border-b-0 border-r-2 border-line-strong bg-white px-3 py-4"
-                aria-hidden
-              />
+              <th className="w-24 border-0 bg-white px-3 py-4" aria-hidden />
               <th
                 colSpan={6}
-                className="border-b-2 border-line-strong bg-white px-3 py-4 text-base font-semibold tracking-tight text-fg"
+                className="border-0 border-t-2 border-r-2 border-line-strong bg-white px-3 py-4 text-base font-semibold tracking-tight text-fg"
               >
                 {title}
               </th>
             </tr>
+            {/*
+              Row 2: Asset + headers.
+              - Thick bottom all the way across
+              - Thick verticals between header columns (from col 2)
+              - Asset: thick right, no left (open corner continues)
+              - Outer right thick on last header
+            */}
             <tr className="text-[11px] uppercase tracking-wide">
-              <th className="border-b-2 border-r-2 border-line-strong bg-white px-3 py-3 text-base font-semibold normal-case tracking-tight text-fg">
+              <th className="border-0 border-b-2 border-r-2 border-line-strong bg-white px-3 py-3 text-base font-semibold normal-case tracking-tight text-fg">
                 Asset
               </th>
-              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
+              <th className="border-0 border-b-2 border-r-2 border-t-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg">
                 Price
               </th>
-              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
+              <th className="border-0 border-b-2 border-r-2 border-t-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg">
                 Expected Move
               </th>
-              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
+              <th className="border-0 border-b-2 border-r-2 border-t-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg">
                 Time Horizon
               </th>
-              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
+              <th className="border-0 border-b-2 border-r-2 border-t-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg">
                 52W Range
               </th>
-              <th className="border-b-2 border-r border-line px-3 py-3 font-semibold text-fg">
+              <th className="border-0 border-b-2 border-r-2 border-t-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg">
                 aw.com Estimate
               </th>
-              <th className="border-b-2 border-line-strong px-3 py-3 font-semibold text-fg">
+              <th className="border-0 border-b-2 border-r-2 border-t-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg">
                 aw.com Rank
               </th>
             </tr>
@@ -76,8 +81,10 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
           <tbody>
             {rows.map((a, i) => {
               const last = i === rows.length - 1;
-              const bottom = last ? "border-b-2 border-line-strong" : "border-b border-line";
+              // Data rows: skinny lines only (no thick bottom on last row)
+              const bottom = last ? "border-b border-line" : "border-b border-line";
               const moveClass = a.expectedMove === "Bullish" ? "text-bull" : "text-bear";
+              const movePath = a.expectedMove === "Bullish" ? "/bullish" : "/bearish";
               return (
                 <tr key={a.ticker} className="hover:bg-neutral-50">
                   <th
@@ -96,8 +103,10 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
                   >
                     {formatPrice(a.price)}
                   </td>
-                  <td className={`${bottom} border-r border-line px-3 py-3 font-medium ${moveClass}`}>
-                    {a.expectedMove}
+                  <td className={`${bottom} border-r border-line px-3 py-3 font-medium`}>
+                    <Link to={movePath} className={`hover:underline ${moveClass}`}>
+                      {a.expectedMove}
+                    </Link>
                   </td>
                   <td className={`${bottom} border-r border-line px-3 py-3 text-fg`}>{a.timeHorizon}</td>
                   <td
@@ -105,17 +114,10 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
                   >
                     {a.range52w}
                   </td>
-                  <td className={`${bottom} border-r border-line px-3 py-3`}>
-                    <Link
-                      to="/asset/$ticker"
-                      params={{ ticker: a.ticker }}
-                      search={{ section: "estimate" }}
-                      className="block text-fg hover:underline"
-                    >
-                      {a.estimate}
-                    </Link>
+                  <td className={`${bottom} border-r border-line px-3 py-3 text-fg`}>
+                    {a.estimate}
                   </td>
-                  <td className={`${bottom} px-3 py-3`}>
+                  <td className={`${bottom} border-r-2 border-line-strong px-3 py-3`}>
                     <Link
                       to="/asset/$ticker"
                       params={{ ticker: a.ticker }}
@@ -130,7 +132,7 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
             })}
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-3 py-10 text-muted">
+                <td colSpan={7} className="border-b border-r-2 border-line-strong px-3 py-10 text-muted">
                   No assets match that search.
                 </td>
               </tr>
