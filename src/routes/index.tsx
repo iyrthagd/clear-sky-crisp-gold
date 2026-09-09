@@ -35,6 +35,7 @@ const newsItems = [
 
 const quickLinks = [
   { to: "/lists" as const, label: "Previous Lists", icon: ListOrdered },
+  { to: "/today" as const, label: "Today's List", icon: LayoutGrid },
   { to: "/search" as const, label: "Asset Search", icon: Search },
   { to: "/rankings" as const, label: "Rankings", icon: LayoutGrid },
   { to: "/community" as const, label: "Community", icon: Users },
@@ -45,29 +46,28 @@ const quickLinks = [
 function Home() {
   return (
     <PageShell>
-      {/* Centered logo + live EST date (no "Today's List" label) */}
-      <header className="mb-8 border-b border-line pb-6 text-center">
+      <header className="mb-8 border-b border-black pb-6 text-center">
         <div className="flex justify-center">
           <LogoOnLight centered />
         </div>
         <LiveEstDate className="mt-2 block text-sm font-medium tabular-nums text-muted" />
       </header>
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_300px]">
+      <div className="grid gap-8 lg:grid-cols-[1fr_280px]">
         <div className="min-w-0 space-y-8">
           <StockTable title="Today's List" assets={august30} />
 
-          <div className="rounded-md border border-dashed border-line bg-ad px-4 py-6 text-center text-sm text-muted">
+          <div className="border border-dashed border-line bg-ad px-4 py-6 text-center text-sm text-muted">
             Advertisement
           </div>
 
           <PersonalWatchlist />
         </div>
 
-        <aside className="space-y-5">
-          <section className="rounded-lg border border-line bg-paper-2 p-4">
+        <aside className="space-y-4">
+          <section className="border border-line bg-white p-4">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
-              <LogIn className="size-4 text-brand-blue" strokeWidth={1.75} />
+              <LogIn className="size-4" strokeWidth={1.75} />
               Account
             </h2>
             <p className="mb-3 text-xs leading-relaxed text-muted">
@@ -76,14 +76,14 @@ function Home() {
             <div className="flex flex-col gap-2">
               <Link
                 to="/login"
-                className="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-ink text-sm font-medium text-white hover:bg-ink-2"
+                className="inline-flex h-9 items-center justify-center gap-2 border border-black bg-black text-sm font-medium text-white hover:bg-ink-2"
               >
                 <LogIn className="size-3.5" />
                 Login
               </Link>
               <Link
                 to="/register"
-                className="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-line bg-paper text-sm font-medium hover:bg-white"
+                className="inline-flex h-9 items-center justify-center gap-2 border border-black bg-white text-sm font-medium hover:bg-neutral-50"
               >
                 <UserPlus className="size-3.5" />
                 Create an account
@@ -91,9 +91,9 @@ function Home() {
             </div>
           </section>
 
-          <section className="rounded-lg border border-line bg-paper-2 p-4">
+          <section className="border border-line bg-white p-4">
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
-              <Newspaper className="size-4 text-brand-blue" strokeWidth={1.75} />
+              <Newspaper className="size-4" strokeWidth={1.75} />
               Desk news
             </h2>
             <ul className="space-y-3">
@@ -106,14 +106,14 @@ function Home() {
             </ul>
           </section>
 
-          <section className="rounded-lg border border-line bg-paper-2 p-4">
-            <h2 className="mb-3 text-sm font-semibold">Explore</h2>
-            <div className="grid grid-cols-1 gap-1.5">
+          <section className="border border-line bg-white p-4">
+            <h2 className="mb-3 text-sm font-semibold">Sections</h2>
+            <div className="grid grid-cols-1 gap-0.5">
               {quickLinks.map((l) => (
                 <Link
-                  key={l.to}
+                  key={l.to + l.label}
                   to={l.to}
-                  className="flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-paper"
+                  className="flex items-center gap-2 px-2 py-2 text-sm hover:bg-neutral-50"
                 >
                   <l.icon className="size-3.5 text-muted" strokeWidth={1.75} />
                   {l.label}
@@ -122,17 +122,17 @@ function Home() {
             </div>
           </section>
 
-          <section className="rounded-lg border border-line bg-paper-2 p-4">
+          <section className="border border-line bg-white p-4">
             <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold">
-              <MessageSquare className="size-4 text-brand-blue" strokeWidth={1.75} />
-              Community chat
+              <MessageSquare className="size-4" strokeWidth={1.75} />
+              Community
             </h2>
             <p className="mb-3 text-xs leading-relaxed text-muted">
-              Talk setups, share ranks, and follow other desks in real time.
+              Talk setups, share ranks, and follow other desks.
             </p>
             <Link
               to="/community"
-              className="inline-flex h-9 w-full items-center justify-center rounded-md bg-brand-blue text-sm font-medium text-white hover:bg-brand-blue-bright"
+              className="inline-flex h-9 w-full items-center justify-center border border-black bg-black text-sm font-medium text-white hover:bg-ink-2"
             >
               Join the community
             </Link>
