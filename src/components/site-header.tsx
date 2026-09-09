@@ -33,37 +33,31 @@ export function SiteHeader() {
     return () => document.removeEventListener("click", onDoc);
   }, []);
 
+  const navLink =
+    "hidden rounded-sm px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white md:inline";
+
   return (
-    <header className="sticky top-0 z-40 bg-ink text-white">
+    <header className="sticky top-0 z-40 border-b border-black bg-black text-white">
       <div
         ref={wrapRef}
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4"
+        className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4"
       >
         <div className="flex min-w-0 items-center gap-5">
           <Logo />
-          <nav className="flex items-center gap-1 text-sm text-white/80">
-            <Link
-              to="/"
-              className="hidden rounded-md px-3 py-2 hover:bg-white/10 hover:text-white md:inline"
-            >
+          <nav className="flex items-center gap-0.5">
+            <Link to="/" className={navLink}>
               Home
             </Link>
-            <Link
-              to="/today"
-              className="hidden rounded-md px-3 py-2 hover:bg-white/10 hover:text-white md:inline"
-            >
+            <Link to="/today" className={navLink}>
               Today's List
             </Link>
-            <Link
-              to="/lists"
-              className="hidden rounded-md px-3 py-2 hover:bg-white/10 hover:text-white md:inline"
-            >
+            <Link to="/lists" className={navLink}>
               Previous Lists
             </Link>
             <div className="relative">
               <button
                 type="button"
-                className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white"
+                className="flex items-center gap-1 rounded-sm px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white"
                 onClick={(e) => {
                   e.stopPropagation();
                   setMoreOpen((v) => !v);
@@ -74,12 +68,12 @@ export function SiteHeader() {
                 More <ChevronDown className="size-3.5 opacity-70" />
               </button>
               {moreOpen ? (
-                <div className="absolute left-0 top-[calc(100%+6px)] min-w-52 overflow-hidden rounded-lg bg-paper-2 py-1 text-fg shadow-[0_12px_32px_rgba(0,0,0,0.22)]">
+                <div className="absolute left-0 top-[calc(100%+4px)] min-w-52 overflow-hidden border border-line bg-white py-1 text-fg shadow-md">
                   {moreLinks.map((l) => (
                     <Link
                       key={l.to}
                       to={l.to}
-                      className="block px-4 py-2.5 text-sm hover:bg-paper"
+                      className="block px-4 py-2.5 text-sm hover:bg-neutral-100"
                       onClick={() => setMoreOpen(false)}
                     >
                       {l.label}
@@ -95,7 +89,7 @@ export function SiteHeader() {
           <div className="relative">
             <button
               type="button"
-              className="grid size-10 place-items-center rounded-full text-white/85 hover:bg-white/10 hover:text-white"
+              className="grid size-9 place-items-center rounded-full text-white/85 hover:bg-white/10 hover:text-white"
               aria-label="Search"
               onClick={(e) => {
                 e.stopPropagation();
@@ -107,17 +101,17 @@ export function SiteHeader() {
               <Microscope className="size-5" strokeWidth={1.75} />
             </button>
             {searchOpen ? (
-              <div className="absolute right-0 top-[calc(100%+6px)] min-w-48 overflow-hidden rounded-lg bg-paper-2 py-1 text-fg shadow-[0_12px_32px_rgba(0,0,0,0.22)]">
+              <div className="absolute right-0 top-[calc(100%+4px)] min-w-48 overflow-hidden border border-line bg-white py-1 text-fg shadow-md">
                 <Link
                   to="/search"
-                  className="block px-4 py-2.5 text-sm hover:bg-paper"
+                  className="block px-4 py-2.5 text-sm hover:bg-neutral-100"
                   onClick={() => setSearchOpen(false)}
                 >
                   Asset Search
                 </Link>
                 <button
                   type="button"
-                  className="block w-full px-4 py-2.5 text-left text-sm hover:bg-paper"
+                  className="block w-full px-4 py-2.5 text-left text-sm hover:bg-neutral-100"
                   onClick={() => {
                     setSearchOpen(false);
                     navigate({ to: "/today" });
@@ -131,7 +125,7 @@ export function SiteHeader() {
           </div>
 
           {isPending ? (
-            <div className="size-10 animate-pulse rounded-full bg-white/10" />
+            <div className="size-9 animate-pulse rounded-full bg-white/10" />
           ) : user ? (
             <div className="max-w-[180px] truncate pl-1 [&_button]:text-white/80 [&_span]:text-white">
               <UserButton />
@@ -140,7 +134,7 @@ export function SiteHeader() {
             <div className="relative">
               <button
                 type="button"
-                className="grid size-10 place-items-center rounded-full text-white/85 hover:bg-white/10 hover:text-white"
+                className="grid size-9 place-items-center rounded-full text-white/85 hover:bg-white/10 hover:text-white"
                 aria-label="Account"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -152,17 +146,17 @@ export function SiteHeader() {
                 <User className="size-5" strokeWidth={1.75} />
               </button>
               {userOpen ? (
-                <div className="absolute right-0 top-[calc(100%+6px)] min-w-44 overflow-hidden rounded-lg bg-paper-2 py-1 text-fg shadow-[0_12px_32px_rgba(0,0,0,0.22)]">
+                <div className="absolute right-0 top-[calc(100%+4px)] min-w-44 overflow-hidden border border-line bg-white py-1 text-fg shadow-md">
                   <Link
                     to="/login"
-                    className="block px-4 py-2.5 text-sm hover:bg-paper"
+                    className="block px-4 py-2.5 text-sm hover:bg-neutral-100"
                     onClick={() => setUserOpen(false)}
                   >
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="block px-4 py-2.5 text-sm hover:bg-paper"
+                    className="block px-4 py-2.5 text-sm hover:bg-neutral-100"
                     onClick={() => setUserOpen(false)}
                   >
                     Create account
