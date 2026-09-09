@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BearishRouteImport } from './routes/bearish'
+import { Route as BullishRouteImport } from './routes/bullish'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CreateWatchlistRouteImport } from './routes/create-watchlist'
 import { Route as ListsRouteImport } from './routes/lists'
@@ -30,6 +32,16 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BearishRoute = BearishRouteImport.update({
+  id: '/bearish',
+  path: '/bearish',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BullishRoute = BullishRouteImport.update({
+  id: '/bullish',
+  path: '/bullish',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunityRoute = CommunityRouteImport.update({
@@ -86,6 +98,8 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bearish': typeof BearishRoute
+  '/bullish': typeof BullishRoute
   '/community': typeof CommunityRoute
   '/create-watchlist': typeof CreateWatchlistRoute
   '/lists': typeof ListsRoute
@@ -100,6 +114,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bearish': typeof BearishRoute
+  '/bullish': typeof BullishRoute
   '/community': typeof CommunityRoute
   '/create-watchlist': typeof CreateWatchlistRoute
   '/lists': typeof ListsRoute
@@ -115,6 +131,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bearish': typeof BearishRoute
+  '/bullish': typeof BullishRoute
   '/community': typeof CommunityRoute
   '/create-watchlist': typeof CreateWatchlistRoute
   '/lists': typeof ListsRoute
@@ -131,6 +149,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/bearish'
+    | '/bullish'
     | '/community'
     | '/create-watchlist'
     | '/lists'
@@ -145,6 +165,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/bearish'
+    | '/bullish'
     | '/community'
     | '/create-watchlist'
     | '/lists'
@@ -159,6 +181,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/bearish'
+    | '/bullish'
     | '/community'
     | '/create-watchlist'
     | '/lists'
@@ -174,6 +198,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BearishRoute: typeof BearishRoute
+  BullishRoute: typeof BullishRoute
   CommunityRoute: typeof CommunityRoute
   CreateWatchlistRoute: typeof CreateWatchlistRoute
   ListsRoute: typeof ListsRoute
@@ -200,6 +226,20 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bearish': {
+      id: '/bearish'
+      path: '/bearish'
+      fullPath: '/bearish'
+      preLoaderRoute: typeof BearishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bullish': {
+      id: '/bullish'
+      path: '/bullish'
+      fullPath: '/bullish'
+      preLoaderRoute: typeof BullishRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/community': {
@@ -278,6 +318,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BearishRoute: BearishRoute,
+  BullishRoute: BullishRoute,
   CommunityRoute: CommunityRoute,
   CreateWatchlistRoute: CreateWatchlistRoute,
   ListsRoute: ListsRoute,
