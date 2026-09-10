@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export type WatchItem = {
   asset: string;
+  price: string;
   range52w: string;
   expectedMove: string;
   timeHorizon: string;
@@ -23,6 +24,7 @@ function normalize(raw: unknown): WatchItem[] {
       if (!asset) return null;
       return {
         asset,
+        price: String(r.price ?? ""),
         range52w: String(r.range52w ?? ""),
         expectedMove: String(r.expectedMove ?? ""),
         timeHorizon: String(r.timeHorizon ?? ""),
@@ -61,6 +63,7 @@ export function useWatchlist() {
       if (!ticker) return;
       const next: WatchItem = {
         asset: ticker,
+        price: item.price.trim(),
         range52w: item.range52w.trim(),
         expectedMove: item.expectedMove.trim(),
         timeHorizon: item.timeHorizon.trim(),
