@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { MyAssetWatchlists } from "@/components/my-asset-watchlists";
 import { PageShell } from "@/components/page-shell";
 import { StockTable } from "@/components/stock-table";
-import { YourWatchlists } from "@/components/your-watchlists";
 import { august29 } from "@/lib/assets";
 
 export const Route = createFileRoute("/lists")({ component: Lists });
@@ -305,7 +305,7 @@ function Lists() {
         Advertisement
       </div>
 
-      <YourWatchlists />
+      <MyAssetWatchlists />
     </PageShell>
   );
 }
