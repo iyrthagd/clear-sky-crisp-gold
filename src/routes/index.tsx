@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import { LiveEstDate } from "@/components/live-est-date";
 import { LogoOnLight } from "@/components/logo";
+import { MyAssetWatchlists } from "@/components/my-asset-watchlists";
 import { PageShell } from "@/components/page-shell";
-import { PersonalWatchlist } from "@/components/personal-watchlist";
 import { StockTable } from "@/components/stock-table";
 import { august30 } from "@/lib/assets";
 
@@ -61,7 +61,7 @@ function Home() {
             Advertisement
           </div>
 
-          <PersonalWatchlist />
+          <MyAssetWatchlists />
         </div>
 
         <aside className="space-y-4">
