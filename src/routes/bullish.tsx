@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { MyAssetWatchlists } from "@/components/my-asset-watchlists";
 import { PageShell } from "@/components/page-shell";
-import { YourWatchlists } from "@/components/your-watchlists";
 import { august30, formatPrice } from "@/lib/assets";
 
 export const Route = createFileRoute("/bullish")({ component: BullishPage });
@@ -45,7 +45,7 @@ function BullishPage() {
       </div>
 
       <div className="mt-10">
-        <YourWatchlists />
+        <MyAssetWatchlists />
       </div>
     </PageShell>
   );
