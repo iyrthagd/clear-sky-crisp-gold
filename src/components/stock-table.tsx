@@ -9,6 +9,13 @@ type Props = {
   showSearch?: boolean;
 };
 
+function rankNumberClass(rank: number): string {
+  if (rank <= 44) return "text-bear";
+  if (rank <= 69) return "text-amber-500";
+  if (rank <= 89) return "text-bull";
+  return "text-brand-blue";
+}
+
 export function StockTable({ title, assets, showSearch = true }: Props) {
   const [q, setQ] = useState("");
 
@@ -37,9 +44,15 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
       <div className="overflow-x-auto bg-white">
         <table className="w-full min-w-[760px] border-collapse text-center text-sm">
           <thead>
-            {/* Row 1: open top-left (no right border); title only — not inside full frame */}
+            {/*
+              Cell 1,1: no top, no left; thick bottom + right.
+              Rest of outer frame: thick black.
+            */}
             <tr>
-              <th className="w-24 border-0 bg-white px-3 py-4" aria-hidden />
+              <th
+                className="w-24 border-0 border-b-2 border-r-2 border-line-strong bg-white px-3 py-4"
+                aria-hidden
+              />
               <th
                 colSpan={6}
                 className="border-0 border-t-2 border-r-2 border-line-strong bg-white px-3 py-4 text-base font-semibold tracking-tight text-fg"
@@ -47,15 +60,8 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
                 {title}
               </th>
             </tr>
-            {/*
-              Row 2: Asset + headers.
-              - Thick bottom all the way across
-              - Thick verticals between header columns (from col 2)
-              - Asset: thick right, no left (open corner continues)
-              - Outer right thick on last header
-            */}
             <tr className="text-[11px] uppercase tracking-wide">
-              <th className="border-0 border-b-2 border-r-2 border-line-strong bg-white px-3 py-3 text-base font-semibold normal-case tracking-tight text-fg">
+              <th className="border-0 border-b-2 border-l-2 border-r-2 border-line-strong bg-white px-3 py-3 text-base font-semibold normal-case tracking-tight text-fg">
                 Asset
               </th>
               <th className="border-0 border-b-2 border-r-2 border-t-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg">
@@ -81,14 +87,17 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
           <tbody>
             {rows.map((a, i) => {
               const last = i === rows.length - 1;
-              // Data rows: skinny lines only (no thick bottom on last row)
-              const bottom = last ? "border-b border-line" : "border-b border-line";
+              const bottom = last
+                ? "border-b-2 border-line-strong"
+                : "border-b border-line";
+              // Rank column: no bottom borders, always white
+              const rankBottom = last ? "border-b-2 border-line-strong" : "border-b-0";
               const moveClass = a.expectedMove === "Bullish" ? "text-bull" : "text-bear";
               const movePath = a.expectedMove === "Bullish" ? "/bullish" : "/bearish";
               return (
                 <tr key={a.ticker} className="hover:bg-neutral-50">
                   <th
-                    className={`${bottom} border-r-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg`}
+                    className={`${bottom} border-l-2 border-r-2 border-line-strong bg-white px-3 py-3 font-semibold text-fg`}
                   >
                     <Link
                       to="/asset/$ticker"
@@ -117,14 +126,17 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
                   <td className={`${bottom} border-r border-line px-3 py-3 text-fg`}>
                     {a.estimate}
                   </td>
-                  <td className={`${bottom} border-r-2 border-line-strong px-3 py-3`}>
+                  <td
+                    className={`${rankBottom} border-r-2 border-line-strong bg-white px-3 py-3`}
+                  >
                     <Link
                       to="/asset/$ticker"
                       params={{ ticker: a.ticker }}
                       search={{ section: "rank" }}
-                      className="block font-medium text-brand-blue hover:underline"
+                      className="block font-medium hover:underline"
                     >
-                      {a.rank}/100
+                      <span className={rankNumberClass(a.rank)}>{a.rank}</span>
+                      <span className="text-brand-blue">/100</span>
                     </Link>
                   </td>
                 </tr>
@@ -132,7 +144,10 @@ export function StockTable({ title, assets, showSearch = true }: Props) {
             })}
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={7} className="border-b border-r-2 border-line-strong px-3 py-10 text-muted">
+                <td
+                  colSpan={7}
+                  className="border-b-2 border-l-2 border-r-2 border-line-strong px-3 py-10 text-muted"
+                >
                   No assets match that search.
                 </td>
               </tr>
